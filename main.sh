@@ -81,6 +81,28 @@ read -p "Enter your choice (1-6): " CHOICE
 case $CHOICE in
   1)
     deploy_frontend
+    echo "Want to deploy API?"
+    read -p "Type [y/n]" REPLY
+     if [[ $REPLY =~ ^[Yy]$ ]]; then
+    echo "Script Started"
+    deploy_api
+        read -p "Choose Deploy Server Apache or Nginx? [a/n]" SERVER
+        if [[ $SERVER =~ ^[Aa]$ ]]; then
+        deploy_on_apache
+            read -p "Want To integrate SSL? [y/n]" SSL
+            if [[ $SSL =~ ^[Yy]$ ]]; then
+            obtain_ssl
+            fi
+        fi
+        if [[ $SERVER =~ ^[Nn]$ ]]; then
+        deploy_on_nginx
+            read -p "Want To integrate SSL? [y/n]" SSL
+            if [[ $SSL =~ ^[Yy]$ ]]; then
+            obtain_ssl
+            fi
+        fi
+    fi
+
     ;;
   2)
     deploy_api
